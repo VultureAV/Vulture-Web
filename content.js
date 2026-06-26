@@ -123,20 +123,60 @@
     }
 
     if (cfg.timeZone !== "") {
+        const offset = parseInt(cfg.timeZone, 10);
+
+        if (!Number.isInteger(offset) || offset < -12 || offset > 12)
+            throw new Error("Invalid timezone. Expected integer from -12 to 12.");
+
+        const tzName =
+            offset === 0
+                ? "Etc/GMT"
+                : offset > 0
+                    ? `Etc/GMT-${offset}`
+                    : `Etc/GMT+${Math.abs(offset)}`;
+
+        const tzOffset = -offset * 60;
+
+        const zoneLabel =
+            offset === 0
+                ? "Coordinated Universal Time"
+                : `UTC${offset >= 0 ? "+" : ""}${offset}`;
+
+        const gmtLabel =
+            `GMT${offset >= 0 ? "+" : "-"}${String(Math.abs(offset)).padStart(2, "0")}00`;
+
         const OrigDateTimeFormat = Intl.DateTimeFormat;
+
         function PatchedDateTimeFormat(locales, options) {
-            return new OrigDateTimeFormat(locales, Object.assign({}, options, { timeZone: "UTC" }));
+            return new OrigDateTimeFormat(
+                locales,
+                Object.assign({}, options, { timeZone: tzName })
+            );
         }
+
         PatchedDateTimeFormat.prototype = OrigDateTimeFormat.prototype;
-        PatchedDateTimeFormat.supportedLocalesOf = OrigDateTimeFormat.supportedLocalesOf.bind(OrigDateTimeFormat);
-        try { Object.defineProperty(Intl, "DateTimeFormat", { value: PatchedDateTimeFormat, configurable: true, writable: true }); } catch (_) {}
+        PatchedDateTimeFormat.supportedLocalesOf =
+            OrigDateTimeFormat.supportedLocalesOf.bind(OrigDateTimeFormat);
+
+        try {
+            Object.defineProperty(Intl, "DateTimeFormat", {
+                value: PatchedDateTimeFormat,
+                configurable: true,
+                writable: true
+            });
+        } catch (_) {}
 
         const origResolvedOptions = OrigDateTimeFormat.prototype.resolvedOptions;
+
         OrigDateTimeFormat.prototype.resolvedOptions = function () {
-            return Object.assign(origResolvedOptions.call(this), { timeZone: "UTC" });
+            return Object.assign(origResolvedOptions.call(this), {
+                timeZone: tzName
+            });
         };
 
-        Date.prototype.getTimezoneOffset = function () { return 0; };
+        Date.prototype.getTimezoneOffset = function () {
+            return tzOffset;
+        };
 
         const _dts = Date.prototype.toString;
         const _tts = Date.prototype.toTimeString;
@@ -144,11 +184,35 @@
         const _lds = Date.prototype.toLocaleDateString;
         const _lts = Date.prototype.toLocaleTimeString;
 
-        Date.prototype.toString           = function ()    { return _dts.call(this).replace(/GMT[+-]\d{4}/, "GMT+0000").replace(/\(.*?\)/, "(Coordinated Universal Time)"); };
-        Date.prototype.toTimeString       = function ()    { return _tts.call(this).replace(/GMT[+-]\d{4}/, "GMT+0000").replace(/\(.*?\)/, "(Coordinated Universal Time)"); };
-        Date.prototype.toLocaleString     = function (l,o) { return _ls.call(this,  l, Object.assign({}, o, { timeZone: "UTC" })); };
-        Date.prototype.toLocaleDateString = function (l,o) { return _lds.call(this, l, Object.assign({}, o, { timeZone: "UTC" })); };
-        Date.prototype.toLocaleTimeString = function (l,o) { return _lts.call(this, l, Object.assign({}, o, { timeZone: "UTC" })); };
+        Date.prototype.toString = function () {
+            return _dts.call(this)
+                .replace(/GMT[+-]\d{4}/, gmtLabel)
+                .replace(/\(.*?\)/, `(${zoneLabel})`);
+        };
+
+        Date.prototype.toTimeString = function () {
+            return _tts.call(this)
+                .replace(/GMT[+-]\d{4}/, gmtLabel)
+                .replace(/\(.*?\)/, `(${zoneLabel})`);
+        };
+
+        Date.prototype.toLocaleString = function (l, o) {
+            return _ls.call(this, l, Object.assign({}, o, {
+                timeZone: tzName
+            }));
+        };
+
+        Date.prototype.toLocaleDateString = function (l, o) {
+            return _lds.call(this, l, Object.assign({}, o, {
+                timeZone: tzName
+            }));
+        };
+
+        Date.prototype.toLocaleTimeString = function (l, o) {
+            return _lts.call(this, l, Object.assign({}, o, {
+                timeZone: tzName
+            }));
+        };
     }
 
     if (cfg.fonts) {
