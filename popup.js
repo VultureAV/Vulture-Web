@@ -27,7 +27,8 @@ const DEFAULTS = {
   timeZone:            "0",
   angle:               "",
   googleinc:           "",
-  os:                  ""
+  os:                  "",
+  hardwareConcurrency: "",
 };
 
 browser.storage.local.get(DEFAULTS).then((stored) => {
@@ -43,6 +44,7 @@ browser.storage.local.get(DEFAULTS).then((stored) => {
   document.getElementById("angle").value = stored.angle;
   document.getElementById("googleinc").value  = stored.googleinc;
   document.getElementById("os").value = stored.os;
+  document.getElementById("hardwareConcurrency").value = stored.hardwareConcurrency;
 });
 
 for (const key of TOGGLE_KEYS) {
@@ -85,4 +87,8 @@ document.getElementById("googleinc").addEventListener("input", debounced(e => {
 
 document.getElementById("os").addEventListener("input", debounced(e => {
   browser.storage.local.set({ os: e.target.value.trim() });
+}));
+
+document.getElementById("hardwareConcurrency").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ hardwareConcurrency: e.target.value.trim() });
 }));

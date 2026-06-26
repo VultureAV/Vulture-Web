@@ -16,7 +16,8 @@
     timeZone:            "",
     angle:               "",
     googleinc:           "",
-    os:                  ""
+    os:                  "",
+    hardwareConcurrency: "",
   };
 
   browser.storage.local.get(STORAGE_DEFAULTS).then((cfg) => {
@@ -91,7 +92,9 @@
     } catch (_) {}
 
     try {
-      Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8, configurable: true });
+      if (cfg.hardwareConcurrency !== "") {
+        Object.defineProperty(navigator, "hardwareConcurrency", { get: () => cfg.hardwareConcurrency, configurable: true });
+      }
     } catch (_) {}
 
     if (cfg.codecs) {

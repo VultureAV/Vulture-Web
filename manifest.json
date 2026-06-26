@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "VultureWeb",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "So? What what do you want to hide?",
     "icons": {
         "48": "icons/v48.png",

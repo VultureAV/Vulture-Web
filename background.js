@@ -15,7 +15,8 @@ const DEFAULTS = {
   timeZone:            "",
   angle:               "",
   googleinc:           "",
-  os:                  ""
+  os:                  "",
+  hardwareConcurrency: "",
 };
 
 let settings = { ...DEFAULTS };
@@ -52,9 +53,10 @@ async function runFirstTimeSetup() {
     referer:             "https://www.google.com",
     lang:                "en-US,en;q=0.9",
     timeZone:            "0",
-    angle:               "ANGLE (AMD, AMD Radeon RX 580 Series (0x000067DF) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-    googleinc:           "Google Inc. (AMD)",
-    os:                  "win32"
+    angle:               "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar ",
+    googleinc:           "Google Inc. (NVIDIA)",
+    os:                  "win32",
+    hardwareConcurrency: 8
   });
 
   browser.tabs.create({ url: browser.runtime.getURL('welcome.html') });
