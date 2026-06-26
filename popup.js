@@ -1,0 +1,84 @@
+// PrivacyGuard - popup.js
+
+const TOGGLE_KEYS = [
+  "cleanNone",
+  "cleanUrls",
+  "dnt",
+  "battery",
+  "data",
+  "codecs",
+  "canvas"
+];
+
+const DEFAULTS = {
+  cleanNone:         true,
+  cleanUrls:         true,
+  dnt:               true,
+  battery:           true,
+  data:              true,
+  codecs:            true,
+  canvas:            true,
+  screenWidth:         "",
+  screenHeight:        "",
+  referer:             "",
+  lang:                "",
+  timeZone:            "",
+  angle:               "",
+  googleinc:           "",
+  os:                  ""
+};
+
+// Load and render all settings
+browser.storage.local.get(DEFAULTS).then((stored) => {
+  for (const key of TOGGLE_KEYS) {
+    const el = document.getElementById(key);
+    if (el) el.checked = stored[key];
+  }
+  document.getElementById("screenWidth").value  = stored.screenWidth  || "";
+  document.getElementById("screenHeight").value = stored.screenHeight || "";
+  document.getElementById("customUA").value     = stored.customUA     || "";
+});
+
+// Persist toggles immediately on change
+for (const key of TOGGLE_KEYS) {
+  const el = document.getElementById(key);
+  if (el) el.addEventListener("change", () => browser.storage.local.set({ [key]: el.checked }));
+}
+
+// Debounced persist for text/number inputs
+function debounced(fn, ms = 400) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
+document.getElementById("screenWidth").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ screenWidth: e.target.value.trim() });
+}));
+
+document.getElementById("screenHeight").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ screenHeight: e.target.value.trim() });
+}));
+
+document.getElementById("referer").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ referer: e.target.value.trim() });
+}));
+
+document.getElementById("lang").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ lang: e.target.value.trim() });
+}));
+
+document.getElementById("timeZone").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ timeZone: e.target.value.trim() });
+}));
+
+document.getElementById("angle").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ angle: e.target.value.trim() });
+}));
+
+document.getElementById("googleinc").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ googleinc: e.target.value.trim() });
+}));
+
+document.getElementById("os").addEventListener("input", debounced(e => {
+  browser.storage.local.set({ os: e.target.value.trim() });
+}));
