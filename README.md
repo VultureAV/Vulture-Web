@@ -5,7 +5,7 @@
     style="vertical-align: middle;"
   />
 A Firefox web extension that spoofs and masks your user data to enhance privacy and prevent tracking
-[![Ko-Fi](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?logo=buymeacoffee&logoColor=black)](https://ko-fi.com/simpfey)
+[![buymeacoffe](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://www.buymeacoffee.com/simpfey)
 </p>
 
 ## Features
