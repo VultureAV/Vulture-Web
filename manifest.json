@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "VultureWeb",
     "version": "1.0.0",
-    "description": "So? What are your computer components?",
+    "description": "So? What what do you want to hide?",
     "permissions": [
         "webRequest",
         "webRequestBlocking",

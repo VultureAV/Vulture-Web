@@ -1,11 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VultureWeb - Thank You</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Thank You</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+:root {
+  --surface: #0d0d0d;
+}
+
+.page {
+  min-height: 98vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-note {
+  margin-top: auto;
+}
+
+.button-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+}
+
+.button.primary {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+}
+
+.button.primary:hover {
+  background: rgba(79, 255, 176, 0.08);
+}
+
+.button.danger {
+  border-color: var(--red);
+}
+
+.button.danger:hover {
+  background: rgba(255, 79, 106, 0.08);
+}
+
+.footer-note {
+  padding: 12px 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  border-top: 1px solid var(--border);
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+</style>
+
 </head>
+
 <body>
-    
+
+<div class="page">
+
+  <div class="header">
+    <div class="logo">✓</div>
+    <div class="header-text">
+      <h1>Download Complete</h1>
+      <div class="toggle-desc">Thanks for installing the plugin</div>
+    </div>
+  </div>
+
+  <div class="section center">
+    <div class="header-text">
+      <h1 class="bigger-text">Thank You ❤️</h1>
+    </div>
+    <div class="toggle-desc" style="margin-top:8px;">
+      Your support means a lot. If you enjoy the plugin, consider checking out the links below.
+    </div>
+  </div>
+
+  <div class="button-row">
+
+    <a class="button primary"
+       href="https://github.com/VultureAV"
+       target="_blank">
+      Project Repository
+    </a>
+
+    <a class="button"
+       href="https://github.com/Simpfey"
+       target="_blank">
+      Owner GitHub
+    </a>
+
+    <a class="button danger"
+       href="https://ko-fi.com/simpfey"
+       target="_blank">
+      Donate
+    </a>
+
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="toggle-label">Need help?</div>
+    </div>
+    <div class="toggle-desc" style="padding: 6px 16px 0 16px;">
+      If something isn’t working, check the GitHub issues page or open a new issue.
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Built with care — enjoy the plugin 🚀
+  </div>
+
+</div>
+
 </body>
 </html>

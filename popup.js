@@ -26,7 +26,7 @@ const DEFAULTS = {
   screenHeight:        "",
   referer:             "",
   lang:                "",
-  timeZone:            "",
+  timeZone:            "0",
   angle:               "",
   googleinc:           "",
   os:                  ""

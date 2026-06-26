@@ -51,7 +51,7 @@ async function runFirstTimeSetup() {
     screenHeight:        1080,
     referer:             "https://www.google.com",
     lang:                "en-US,en;q=0.9",
-    timeZone:            0,
+    timeZone:            "0",
     angle:               "ANGLE (AMD, AMD Radeon RX 580 Series (0x000067DF) Direct3D11 vs_5_0 ps_5_0, D3D11)",
     googleinc:           "Google Inc. (AMD)",
     os:                  "win32"
