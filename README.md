@@ -4,8 +4,11 @@
     height="64"
     style="vertical-align: middle;"
   />
-<p>A Firefox web extension that spoofs and masks your user data to enhance privacy and prevent tracking</p>
-[![buymeacoffe](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://www.buymeacoffee.com/simpfey)
+<p align="center">A Firefox web extension that spoofs and masks your user data to enhance privacy and prevent tracking</p>
+<a align="center" href="https://www.buymeacoffee.com/simpfey" target="_blank">
+  <img align="center" src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me A Coffee" />
+</a>
+<img align="center" src="https://img.shields.io/badge/Currently%20Uploading%20to%20Mozilla%20Addon%20Store-070707" alt="Download" />
 </p>
 
 ## Features
