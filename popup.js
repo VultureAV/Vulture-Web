@@ -1,5 +1,3 @@
-// PrivacyGuard - popup.js
-
 const TOGGLE_KEYS = [
   "cleanNone",
   "cleanUrls",
@@ -32,7 +30,6 @@ const DEFAULTS = {
   os:                  ""
 };
 
-// Load and render all settings
 browser.storage.local.get(DEFAULTS).then((stored) => {
   for (const key of TOGGLE_KEYS) {
     const el = document.getElementById(key);
@@ -48,13 +45,11 @@ browser.storage.local.get(DEFAULTS).then((stored) => {
   document.getElementById("os").value = stored.os;
 });
 
-// Persist toggles immediately on change
 for (const key of TOGGLE_KEYS) {
   const el = document.getElementById(key);
   if (el) el.addEventListener("change", () => browser.storage.local.set({ [key]: el.checked }));
 }
 
-// Debounced persist for text/number inputs
 function debounced(fn, ms = 400) {
   let t;
   return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
