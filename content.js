@@ -328,5 +328,14 @@
         }
       }
     }
+
+    if (cfg.os !== "") {
+        Object.defineProperty(Navigator.prototype, "platform", {
+            get() {
+                return cfg.os;
+            },
+            configurable: true
+        });
+    }
   }
 })();
