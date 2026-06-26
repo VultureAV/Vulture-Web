@@ -11,7 +11,7 @@
 A Firefox web extension that spoofs and masks your user data to enhance privacy and prevent tracking
 
 [![buymeacoffe](https://img.shields.io/badge/buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://www.buymeacoffee.com/simpfey)
-[![download](https://img.shields.io/badge/Download-070707)](https://addons.mozilla.org/firefox/downloads/file/4870423/03462c58f1e24024a9e8-1.0.0.xpi)
+[![download](https://img.shields.io/badge/Download-070707)](https://addons.mozilla.org/firefox/downloads/file/4870512/03462c58f1e24024a9e8-1.0.2.zip)
 
 </div>
 

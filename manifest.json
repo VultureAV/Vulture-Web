@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "VultureWeb",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "So? What what do you want to hide?",
     "icons": {
         "48": "icons/v48.png",
@@ -27,7 +27,7 @@
     },
     "browser_specific_settings": {
         "gecko": {
-        "id": "simpfey@vulture",
+        "id": "public@vulture",
         "data_collection_permissions": {
             "required": ["none"]
         }
