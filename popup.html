@@ -100,12 +100,34 @@
             </label>
         </div>
 
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Spoof Fonts</div>
+                <div class="toggle-desc">Shows websites only preinstalled windows fonts</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="fonts" />
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Spoof Devices</div>
+                <div class="toggle-desc">Websites won't see any audio/video decies such as Microphone and Camera</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="devices" />
+                <span class="slider"></span>
+            </label>
+        </div>
+
         <div class="input-section">
             <label>Spoofed Screen Resolution</label>
             <div class="input-row">
-                <input type="number" id="screenWidth"  min="800" max="7680" placeholder="1920" />
+                <input type="number" id="screenWidth"  min="800" max="7680" value="1920" placeholder="Disabled"/>
                 <span class="sep">×</span>
-                <input type="number" id="screenHeight" min="600" max="4320" placeholder="1080" />
+                <input type="number" id="screenHeight" min="600" max="4320" value="1080" placeholder="Disabled" />
             </div>
             <div class="input-hint">Leave blank to use defaults (1920 × 1080)</div>
         </div>
@@ -113,43 +135,43 @@
         <div class="input-section">
             <label>Spoofed Referer</label>
             <div class="input-row">
-                <input type="text" id="referer" placeholder="https://www.google.com" />
+                <input type="text" id="referer" value="https://www.google.com" placeholder="Disabled" />
             </div>
-            <div class="input-hint">Leave blank to use defaults (https://www.google.com)</div>
+            <div class="input-hint">Leave blank to use disable</div>
         </div>
 
         <div class="input-section">
             <label>Accepted Language</label>
             <div class="input-row">
-                <input type="text" id="lang" placeholder="en-US,en;q=0.9" />
+                <input type="text" id="lang" value="en-US,en;q=0.9" placeholder="Disabled"/>
             </div>
-            <div class="input-hint">Leave blank to use defaults (en-US,en;q=0.9)</div>
+            <div class="input-hint">Leave blank to use disable</div>
         </div>
 
         <div class="input-section">
             <label>Spoofed Timezone</label>
             <div class="input-row">
-                UTC+<input type="number" id="timeZone"  min="-12" max="12" placeholder="00" />
+                UTC+<input type="number" id="timeZone"  min="-12" max="12" value="00" placeholder="Disabled"/>
             </div>
-            <div class="input-hint">Leave blank to use defaults (0)</div>
+            <div class="input-hint">Leave blank to use disable</div>
         </div>
 
         <div class="input-section">
             <label>Spoofed Graphics API Info</label>
             <div class="input-row">
-                <input type="text" id="angle"  placeholder="ANGLE (AMD, AMD Radeon RX 580 Series (0x000067DF) Direct3D11 vs_5_0 ps_5_0, D3D11)" />
+                <input type="text" id="angle"  value="ANGLE (AMD, AMD Radeon RX 580 Series (0x000067DF) Direct3D11 vs_5_0 ps_5_0, D3D11)" placeholder="Disabled"/>
                 <br/>
-                <input type="text" id="googleinc" placeholder="Google Inc. (AMD)" />
+                <input type="text" id="googleinc" value="Google Inc. (AMD)" placeholder="Disabled"/>
             </div>
-            <div class="input-hint">Leave blank to use defaults</div>
+            <div class="input-hint">Leave blank to use disable (Both Need To Be Enabled To Work!)</div>
         </div>
 
         <div class="input-section">
             <label>Spoofed Operating System</label>
             <div class="input-row">
-                <input type="text" id="os"  placeholder="win32" />
+                <input type="text" id="os"  value="win32" placeholder="Disabled"/>
             </div>
-            <div class="input-hint">Leave blank to use defaults</div>
+            <div class="input-hint">Leave blank to use disable</div>
         </div>
     </div>
 

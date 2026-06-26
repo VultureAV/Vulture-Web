@@ -7,7 +7,9 @@ const TOGGLE_KEYS = [
   "battery",
   "data",
   "codecs",
-  "canvas"
+  "canvas",
+  "fonts",
+  "devices",
 ];
 
 const DEFAULTS = {
@@ -18,6 +20,8 @@ const DEFAULTS = {
   data:              true,
   codecs:            true,
   canvas:            true,
+  fonts:             true,
+  devices:           true,
   screenWidth:         "",
   screenHeight:        "",
   referer:             "",
@@ -34,9 +38,14 @@ browser.storage.local.get(DEFAULTS).then((stored) => {
     const el = document.getElementById(key);
     if (el) el.checked = stored[key];
   }
-  document.getElementById("screenWidth").value  = stored.screenWidth  || "";
-  document.getElementById("screenHeight").value = stored.screenHeight || "";
-  document.getElementById("customUA").value     = stored.customUA     || "";
+  document.getElementById("screenWidth").value  = stored.screenWidth ;
+  document.getElementById("screenHeight").value = stored.screenHeight;
+  document.getElementById("referer").value  = stored.referer;
+  document.getElementById("lang").value = stored.lang;
+  document.getElementById("timeZone").value  = stored.timeZone || "";
+  document.getElementById("angle").value = stored.angle;
+  document.getElementById("googleinc").value  = stored.googleinc;
+  document.getElementById("os").value = stored.os;
 });
 
 // Persist toggles immediately on change
