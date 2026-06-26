@@ -40,11 +40,14 @@ VultureWeb intercepts and modifies:
 - **Browser APIs**: `navigator.platform`, `screen.width`, `screen.height`, `navigator.language`
 - **WebGL**: GPU renderer information
 - **Canvas**: Fingerprinting protection
-- **Storage**: Tracking cookie limitations
 
 ## Privacy Policy
 
 VultureWeb does not collect, store, or transmit any user data. All spoofing occurs locally within your browser.
+
+## License
+
+VultureWeb uses the All Rights Reserved license, code can only be seen, and downloaded for private use and learning purposes, do not redistribute the extension without being allowed to do so, nor re-sell it on any platform.
 
 ## Support
 
