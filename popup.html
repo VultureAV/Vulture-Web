@@ -29,7 +29,29 @@
                 <div class="toggle-desc">Disables if-none-match header from being sent and received</div>
             </div>
             <label class="toggle">
+                <input type="checkbox" id="cleanNone" />
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Disable Tracking</div>
+                <div class="toggle-desc">Cancels requests to 30+ tracking domains and params</div>
+            </div>
+            <label class="toggle">
                 <input type="checkbox" id="cleanUrls" />
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Do Not Track</div>
+                <div class="toggle-desc">Injects "Do Not Track" header</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="dnt" />
                 <span class="slider"></span>
             </label>
         </div>
@@ -42,6 +64,30 @@
                 <input type="number" id="screenHeight" min="600" max="4320" placeholder="1080" />
             </div>
             <div class="input-hint">Leave blank to use defaults (1920 × 1080)</div>
+        </div>
+
+        <div class="input-section">
+            <label>Spoofed Referer</label>
+            <div class="input-row">
+                <input type="text" id="referer" placeholder="https://www.google.com" />
+            </div>
+            <div class="input-hint">Leave blank to use defaults (https://www.google.com)</div>
+        </div>
+
+        <div class="input-section">
+            <label>Accepted Language</label>
+            <div class="input-row">
+                <input type="text" id="referer" placeholder="en-US,en;q=0.9" />
+            </div>
+            <div class="input-hint">Leave blank to use defaults (en-US,en;q=0.9)</div>
+        </div>
+
+        <div class="input-section">
+            <label>Spoofed Timezone</label>
+            <div class="input-row">
+                UTC+<input type="number" id="timeZone"  min="-12" max="12" placeholder="00" />
+            </div>
+            <div class="input-hint">Leave blank to use defaults (0)</div>
         </div>
     </div>
 </body>
