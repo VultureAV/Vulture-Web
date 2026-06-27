@@ -126,35 +126,41 @@
     }
 
     if (cfg.timeZone !== "") {
-        const offset = parseInt(cfg.timeZone, 10);
-
-        if (!Number.isInteger(offset) || offset < -12 || offset > 12)
-            throw new Error("Invalid timezone. Expected integer from -12 to 12.");
-
-        const tzName =
-            offset === 0
-                ? "Etc/GMT"
-                : offset > 0
-                    ? `Etc/GMT-${offset}`
-                    : `Etc/GMT+${Math.abs(offset)}`;
-
-        const tzOffset = -offset * 60;
-
-        const zoneLabel =
-            offset === 0
-                ? "Coordinated Universal Time"
-                : `UTC${offset >= 0 ? "+" : ""}${offset}`;
-
-        const gmtLabel =
-            `GMT${offset >= 0 ? "+" : "-"}${String(Math.abs(offset)).padStart(2, "0")}00`;
+        const tzName = String(cfg.timeZone);
 
         const OrigDateTimeFormat = Intl.DateTimeFormat;
 
+        try {
+            new OrigDateTimeFormat("en-US", { timeZone: tzName });
+        } catch (e) {
+            throw new Error(`Invalid IANA timeZone "${tzName}": ${e.message}`);
+        }
+
+        function realOffsetMinutes(utcMillis) {
+            const dtf = new OrigDateTimeFormat("en-US", {
+                timeZone: tzName, hour12: false,
+                year: "numeric", month: "2-digit", day: "2-digit",
+                hour: "2-digit", minute: "2-digit", second: "2-digit"
+            });
+            const parts = {};
+            dtf.formatToParts(new Date(utcMillis)).forEach(p => { parts[p.type] = p.value; });
+            const h = parts.hour === "24" ? 0 : +parts.hour;
+            const asIfUTC = Date.UTC(+parts.year, +parts.month - 1, +parts.day, h, +parts.minute, +parts.second);
+            return Math.round((asIfUTC - utcMillis) / 60000);
+        }
+
+        function gmtLabelFor(offsetMin) {
+            const sign = offsetMin >= 0 ? "+" : "-";
+            const abs = Math.abs(offsetMin);
+            const hh = String(Math.floor(abs / 60)).padStart(2, "0");
+            const mm = String(abs % 60).padStart(2, "0");
+            return `GMT${sign}${hh}${mm}`;
+        }
+
         function PatchedDateTimeFormat(locales, options) {
-            return new OrigDateTimeFormat(
-                locales,
-                Object.assign({}, options, { timeZone: tzName })
-            );
+            const opts = Object.assign({}, options);
+            if (!opts.timeZone) opts.timeZone = tzName;
+            return new OrigDateTimeFormat(locales, opts);
         }
 
         PatchedDateTimeFormat.prototype = OrigDateTimeFormat.prototype;
@@ -169,52 +175,62 @@
             });
         } catch (_) {}
 
-        const origResolvedOptions = OrigDateTimeFormat.prototype.resolvedOptions;
-
-        OrigDateTimeFormat.prototype.resolvedOptions = function () {
-            return Object.assign(origResolvedOptions.call(this), {
-                timeZone: tzName
-            });
-        };
-
         Date.prototype.getTimezoneOffset = function () {
-            return tzOffset;
+            return -realOffsetMinutes(this.getTime());
         };
 
         const _dts = Date.prototype.toString;
         const _tts = Date.prototype.toTimeString;
+        const _ds  = Date.prototype.toDateString;
         const _ls  = Date.prototype.toLocaleString;
         const _lds = Date.prototype.toLocaleDateString;
         const _lts = Date.prototype.toLocaleTimeString;
 
-        Date.prototype.toString = function () {
-            return _dts.call(this)
-                .replace(/GMT[+-]\d{4}/, gmtLabel)
-                .replace(/\(.*?\)/, `(${zoneLabel})`);
+        const DAY_NAMES = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+        const MONTH_NAMES = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        function pad2(n) { return String(n).padStart(2, "0"); }
+
+        function spoofedParts(date) {
+            const off = realOffsetMinutes(date.getTime());
+            const shifted = new Date(date.getTime() + off * 60000);
+            return {
+                year: shifted.getUTCFullYear(), month: shifted.getUTCMonth(), day: shifted.getUTCDate(),
+                weekday: shifted.getUTCDay(), hours: shifted.getUTCHours(),
+                minutes: shifted.getUTCMinutes(), seconds: shifted.getUTCSeconds(),
+                offsetMin: off
+            };
+        }
+
+        Date.prototype.toDateString = function () {
+            const p = spoofedParts(this);
+            return `${DAY_NAMES[p.weekday]} ${MONTH_NAMES[p.month]} ${pad2(p.day)} ${p.year}`;
         };
 
         Date.prototype.toTimeString = function () {
-            return _tts.call(this)
-                .replace(/GMT[+-]\d{4}/, gmtLabel)
-                .replace(/\(.*?\)/, `(${zoneLabel})`);
+            const p = spoofedParts(this);
+            return `${pad2(p.hours)}:${pad2(p.minutes)}:${pad2(p.seconds)} ${gmtLabelFor(p.offsetMin)} (${tzName})`;
+        };
+
+        Date.prototype.toString = function () {
+            return `${this.toDateString()} ${this.toTimeString()}`;
         };
 
         Date.prototype.toLocaleString = function (l, o) {
-            return _ls.call(this, l, Object.assign({}, o, {
-                timeZone: tzName
-            }));
+            const opts = Object.assign({}, o);
+            if (!opts.timeZone) opts.timeZone = tzName;
+            return _ls.call(this, l, opts);
         };
 
         Date.prototype.toLocaleDateString = function (l, o) {
-            return _lds.call(this, l, Object.assign({}, o, {
-                timeZone: tzName
-            }));
+            const opts = Object.assign({}, o);
+            if (!opts.timeZone) opts.timeZone = tzName;
+            return _lds.call(this, l, opts);
         };
 
         Date.prototype.toLocaleTimeString = function (l, o) {
-            return _lts.call(this, l, Object.assign({}, o, {
-                timeZone: tzName
-            }));
+            const opts = Object.assign({}, o);
+            if (!opts.timeZone) opts.timeZone = tzName;
+            return _lts.call(this, l, opts);
         };
     }
 

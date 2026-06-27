@@ -24,11 +24,11 @@ const DEFAULTS = {
   screenHeight:        "",
   referer:             "",
   lang:                "",
-  timeZone:            "0",
+  timeZone:            "Europe/London",
   angle:               "",
   googleinc:           "",
   os:                  "",
-  hardwareConcurrency: "",
+  hardwareConcurrency: "8",
 };
 
 browser.storage.local.get(DEFAULTS).then((stored) => {

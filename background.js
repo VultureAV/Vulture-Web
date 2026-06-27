@@ -52,10 +52,10 @@ async function runFirstTimeSetup() {
     screenHeight:        1080,
     referer:             "https://www.google.com",
     lang:                "en-US,en;q=0.9",
-    timeZone:            "0",
+    timeZone:            "Europe/London",
     angle:               "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar ",
     googleinc:           "Google Inc. (NVIDIA)",
-    os:                  "win32",
+    os:                  "Win32",
     hardwareConcurrency: 8
   });
 
