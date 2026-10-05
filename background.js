@@ -103,7 +103,7 @@ const TRACKING_PARAMS = [
   "trk", "trkCampaign",
   "sc_campaign", "sc_channel", "sc_content", "sc_medium",
   "zanpid", "origin", "igshid",
-  "mkt_tok"
+  "mkt_tok", "is"
 ];
 
 function cleanUrl(urlStr) {
