@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "VultureWeb",
-    "version": "1.0.3",
-    "description": "So? What what do you want to hide?",
+    "version": "1.1.0",
+    "description": "So? What do you want to hide?",
     "icons": {
         "48": "icons/v48.png",
         "96": "icons/v96.png"
@@ -12,11 +12,14 @@
         "webRequestBlocking",
         "storage",
         "tabs",
-        "activeTab",
+        "privacy",
         "<all_urls>"
     ],
     "background": {
-        "scripts": ["background.js"]
+        "scripts": [
+            "shared.js",
+            "background.js"
+        ]
     },
     "browser_action": {
         "default_popup": "popup.html",
@@ -27,17 +30,27 @@
     },
     "browser_specific_settings": {
         "gecko": {
-        "id": "private@vulture",
-        "data_collection_permissions": {
-            "required": ["none"]
-        }
+            "id": "private@vulture",
+            "data_collection_permissions": {
+                "required": [
+                    "none"
+                ]
+            }
         }
     },
+    "content_security_policy": "script-src 'self'; object-src 'none'; base-uri 'none'",
     "content_scripts": [
         {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"],
-        "run_at": "document_start"
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "shared.js",
+                "content.js"
+            ],
+            "run_at": "document_start",
+            "all_frames": true,
+            "match_about_blank": true
         }
     ]
 }

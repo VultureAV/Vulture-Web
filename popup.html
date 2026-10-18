@@ -13,109 +13,186 @@
             <h1 class="bigger-text">Vulture Web</h1>
             <div class="input-hint">The Ultimate Spoofing Toolkit.</div>
         </div>
+        <label class="toggle master" title="Master switch">
+            <input type="checkbox" id="enabled" />
+            <span class="slider"></span>
+        </label>
     </div>
 
-    <!-- Fingerprinting -->
-    <div class="section-header">
-        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fingerprint-pattern-icon lucide-fingerprint-pattern"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></div>
-        <div class="header-text">
-            <h1>Fingerprinting</h1>
+    <div class="site-bar">
+        <div class="site-info">
+            <div class="toggle-label" id="siteHost">-</div>
+            <div class="toggle-desc" id="siteState"></div>
         </div>
+        <button type="button" class="btn" id="siteBtn" disabled>Pause here</button>
     </div>
 
+    <!-- Security -->
+    <div class="section-header">
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+        <div class="header-text"><h1>Security &amp; Network</h1></div>
+    </div>
     <div class="section">
         <div class="toggle-row">
             <div class="toggle-info">
-                <div class="toggle-label">Disable none-match Fingerprinting</div>
-                <div class="toggle-desc">Disables if-none-match header from being sent and received</div>
+                <div class="toggle-label">Upgrade to HTTPS</div>
+                <div class="toggle-desc" id="desc-httpsUpgrade">Rewrites http:// to https://. If a site doesn't support it you get a warning page instead of a silent downgrade</div>
             </div>
             <label class="toggle">
-                <input type="checkbox" id="cleanNone" />
+                <input type="checkbox" id="httpsUpgrade" />
                 <span class="slider"></span>
             </label>
         </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">WebRTC IP Leak Protection</div>
+                <div class="toggle-desc" id="desc-webrtc">Stops WebRTC from exposing your local/LAN addresses (browser-wide setting)</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="webrtc" />
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Block Local-Network Probing</div>
+                <div class="toggle-desc" id="desc-blockLocalNet">Public websites can't make requests to localhost or your LAN (port scans, local-service attacks)</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="blockLocalNet" />
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Block Pings &amp; Third-Party Beacons</div>
+                <div class="toggle-desc" id="desc-blockPings">Cancels hyperlink-auditing pings and third-party sendBeacon requests</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="blockPings" />
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Block Third-Party Cookies</div>
+                <div class="toggle-desc" id="desc-blockThirdPartyCookies">Strips cookies on third-party requests. May break embedded logins / payment widgets</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="blockThirdPartyCookies" />
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
 
+    <!-- Tracking -->
+    <div class="section-header">
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+        <div class="header-text"><h1>Tracking</h1></div>
+    </div>
+    <div class="section">
         <div class="toggle-row">
             <div class="toggle-info">
                 <div class="toggle-label">Disable Tracking</div>
-                <div class="toggle-desc">Cancels requests to 30+ tracking domains and params</div>
+                <div class="toggle-desc" id="desc-cleanUrls">Cancels requests to 50+ tracker domains and strips click-ID params (utm_*, fbclid, gclid...)</div>
             </div>
             <label class="toggle">
                 <input type="checkbox" id="cleanUrls" />
                 <span class="slider"></span>
             </label>
         </div>
-
         <div class="toggle-row">
             <div class="toggle-info">
-                <div class="toggle-label">Do Not Track</div>
-                <div class="toggle-desc">Injects "Do Not Track" header</div>
+                <div class="toggle-label">Disable ETag Fingerprinting</div>
+                <div class="toggle-desc" id="desc-cleanNone">Removes ETag / Last-Modified / If-None-Match on third-party requests, and proxy-revealing headers</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="cleanNone" />
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Do Not Track + Global Privacy Control</div>
+                <div class="toggle-desc" id="desc-dnt">Sends DNT / Sec-GPC and reports them to scripts too</div>
             </div>
             <label class="toggle">
                 <input type="checkbox" id="dnt" />
                 <span class="slider"></span>
             </label>
         </div>
+    </div>
 
-        <div class="toggle-row">
-            <div class="toggle-info">
-                <div class="toggle-label">Block Battery Visibility</div>
-                <div class="toggle-desc">Disables websites from seeing battery information</div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="battery" />
-                <span class="slider"></span>
-            </label>
-        </div>
-
-        <div class="toggle-row">
-            <div class="toggle-info">
-                <div class="toggle-label">Block Wifi Visibility</div>
-                <div class="toggle-desc">Disables websites from seeing wifi information</div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="data" />
-                <span class="slider"></span>
-            </label>
-        </div>
-
-        <div class="toggle-row">
-            <div class="toggle-info">
-                <div class="toggle-label">Spoof Available Codecs</div>
-                <div class="toggle-desc">Spoofs Available Codecs to the Most Popular Ones</div>
-            </div>
-            <label class="toggle">
-                <input type="checkbox" id="codecs" />
-                <span class="slider"></span>
-            </label>
-        </div>
-
+    <!-- Fingerprinting -->
+    <div class="section-header">
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fingerprint-pattern-icon lucide-fingerprint-pattern"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></div>
+        <div class="header-text"><h1>Fingerprinting</h1></div>
+    </div>
+    <div class="section">
         <div class="toggle-row">
             <div class="toggle-info">
                 <div class="toggle-label">Canvas Noise</div>
-                <div class="toggle-desc">Gives random noise to Canvases</div>
+                <div class="toggle-desc" id="desc-canvas">Adds stable per-session noise to canvas output (works on a copy, never touches what you see)</div>
             </div>
             <label class="toggle">
                 <input type="checkbox" id="canvas" />
                 <span class="slider"></span>
             </label>
         </div>
-
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Audio Noise</div>
+                <div class="toggle-desc" id="desc-audio">Perturbs AudioContext / Analyser fingerprinting</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="audio" />
+                <span class="slider"></span>
+            </label>
+        </div>
         <div class="toggle-row">
             <div class="toggle-info">
                 <div class="toggle-label">Spoof Fonts</div>
-                <div class="toggle-desc">Shows websites only preinstalled windows fonts</div>
+                <div class="toggle-desc" id="desc-fonts">Only a fixed font set for the selected OS is visible to document.fonts.check()</div>
             </div>
             <label class="toggle">
                 <input type="checkbox" id="fonts" />
                 <span class="slider"></span>
             </label>
         </div>
-
         <div class="toggle-row">
             <div class="toggle-info">
-                <div class="toggle-label">Spoof Devices</div>
-                <div class="toggle-desc">Websites won't see any audio/video decies such as Microphone and Camera</div>
+                <div class="toggle-label">Spoof Available Codecs</div>
+                <div class="toggle-desc" id="desc-codecs">Answers common fingerprinting probes with a fixed set; normal video playback is untouched</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="codecs" />
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Block Battery Visibility</div>
+                <div class="toggle-desc" id="desc-battery">Websites can't read battery information</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="battery" />
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Block Network Info</div>
+                <div class="toggle-desc" id="desc-data">Hides connection details (Network Information API)</div>
+            </div>
+            <label class="toggle">
+                <input type="checkbox" id="data" />
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="toggle-row">
+            <div class="toggle-info">
+                <div class="toggle-label">Hide Camera / Microphone</div>
+                <div class="toggle-desc" id="desc-devices">Sites see no media devices. Turn off (or pause on the site) for video calls</div>
             </div>
             <label class="toggle">
                 <input type="checkbox" id="devices" />
@@ -124,66 +201,89 @@
         </div>
 
         <div class="input-section">
-            <label>Hardware Concurrency</label>
+            <label for="osProfile">Spoofed Operating System</label>
             <div class="input-row">
-                <input type="number" id="hardwareConcurrency" min="1" max="128" value="8" placeholder="Disabled"/>
+                <select id="osProfile">
+                    <option value="">Disabled (real OS)</option>
+                    <option value="windows">Windows</option>
+                    <option value="macos">macOS</option>
+                    <option value="linux">Linux</option>
+                    <option value="custom">Custom platform string</option>
+                </select>
             </div>
+            <div class="input-row" id="osCustomRow" hidden><input type="text" id="os" placeholder="e.g. Win32" autocomplete="off" spellcheck="false" /></div>
+            <div class="input-hint">Sets platform, userAgent (JS <i>and</i> HTTP header), appVersion, oscpu, fonts and taskbar size together so they agree</div>
+            <div class="input-hint err" id="err-osProfile"></div>
+        </div>
+
+        <div class="input-hint warn" id="warn"></div>
+
+        <div class="input-section">
+            <label for="hardwareConcurrency">Hardware Concurrency</label>
+            <div class="input-row"><input type="number" id="hardwareConcurrency" min="1" max="128" placeholder="Disabled" /></div>
             <div class="input-hint">Leave blank to disable</div>
+            <div class="input-hint err" id="err-hardwareConcurrency"></div>
         </div>
 
         <div class="input-section">
             <label>Spoofed Screen Resolution</label>
             <div class="input-row">
-                <input type="number" id="screenWidth"  min="800" max="7680" value="1920" placeholder="Disabled"/>
+                <input type="number" id="screenWidth" min="800" max="7680" placeholder="Disabled" />
                 <span class="sep">×</span>
-                <input type="number" id="screenHeight" min="600" max="4320" value="1080" placeholder="Disabled" />
+                <input type="number" id="screenHeight" min="600" max="4320" placeholder="Disabled" />
             </div>
-            <div class="input-hint">Leave blank to use defaults (1920 × 1080)</div>
+            <div class="input-hint">Leave blank to disable. Both values are needed</div>
+            <div class="input-hint err" id="err-screenWidth"></div>
+            <div class="input-hint err" id="err-screenHeight"></div>
+        </div>
+        <div class="input-section">
+            <label for="referer">Spoofed Referer</label>
+            <div class="input-row"><input type="text" id="referer" placeholder="Disabled" autocomplete="off" spellcheck="false" /></div>
+            <div class="input-hint">Used for cross-site requests only. Same-site navigation keeps its real referrer. Leave blank to disable</div>
+            <div class="input-hint err" id="err-referer"></div>
         </div>
 
         <div class="input-section">
-            <label>Spoofed Referer</label>
-            <div class="input-row">
-                <input type="text" id="referer" value="https://www.google.com" placeholder="Disabled" />
-            </div>
-            <div class="input-hint">Leave blank to disable</div>
+            <label for="lang">Accepted Language</label>
+            <div class="input-row"><input type="text" id="lang" placeholder="Disabled" autocomplete="off" spellcheck="false" /></div>
+            <div class="input-hint">Sent as Accept-Language and reported as navigator.language(s). Leave blank to disable</div>
+            <div class="input-hint err" id="err-lang"></div>
         </div>
 
         <div class="input-section">
-            <label>Accepted Language</label>
-            <div class="input-row">
-                <input type="text" id="lang" value="en-US,en;q=0.9" placeholder="Disabled"/>
-            </div>
-            <div class="input-hint">Leave blank to disable</div>
+            <label for="timeZone">Spoofed Timezone</label>
+            <div class="input-row"><input type="text" id="timeZone" placeholder="Disabled" autocomplete="off" spellcheck="false" /></div>
+            <div class="input-hint">IANA name, e.g. Europe/Warsaw. Leave blank to disable</div>
+            <div class="input-hint err" id="err-timeZone"></div>
         </div>
 
         <div class="input-section">
-            <label>Spoofed Timezone</label>
-            <div class="input-row">
-                IANA:&nbsp;<input type="text" id="timeZone"  min="-12" max="12" value="0" placeholder="Disabled"/>
-            </div>
-            <div class="input-hint">Leave blank to disable (IANA timezone name)</div>
-        </div>
-
-        <div class="input-section">
-            <label>Spoofed Graphics API Info</label>
-            <div class="input-row">
-                <input type="text" id="angle"  value="ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar" placeholder="Disabled"/>
-                <br/>
-                <input type="text" id="googleinc" value="Google Inc. (NVIDIA)" placeholder="Disabled"/>
-            </div>
-            <div class="input-hint">Leave blank to disable (Both Need To Be Enabled To Work!)</div>
-        </div>
-
-        <div class="input-section">
-            <label>Spoofed Operating System</label>
-            <div class="input-row">
-                <input type="text" id="os"  value="win32" placeholder="Disabled"/>
-            </div>
-            <div class="input-hint">Leave blank to disable</div>
+            <label for="angle">Spoofed Graphics API Info</label>
+            <div class="input-row"><input type="text" id="angle" placeholder="Renderer - disabled" autocomplete="off" spellcheck="false" /></div>
+            <div class="input-row" style="margin-top:6px"><input type="text" id="googleinc" placeholder="Vendor - disabled" autocomplete="off" spellcheck="false" /></div>
+            <div class="input-hint">Leave blank to disable (both fields are needed)</div>
+            <div class="input-hint err" id="err-angle"></div>
+            <div class="input-hint err" id="err-googleinc"></div>
         </div>
     </div>
 
+    <div class="section-header">
+        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+        <div class="header-text"><h1>Site allowlist</h1></div>
+    </div>
+    <div class="section">
+        <div class="input-section">
+            <label for="allowlist">Protections are off on these sites</label>
+            <div class="input-row"><textarea id="allowlist" rows="3" placeholder="example.com&#10;meet.google.com" spellcheck="false"></textarea></div>
+            <div class="input-hint">One domain per line. Subdomains are included. The WebRTC setting is browser-wide and not affected</div>
+        </div>
+        <div class="footer-row">
+            <button type="button" class="btn danger" id="resetBtn">Reset to defaults</button>
+            <div class="input-hint" id="version"></div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
